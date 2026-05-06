@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResearchDraft.ai | 科研文案生成服务</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">ResearchDraft.ai</div>
+        <nav class="nav-links">
+          <a href="#why">服务价值</a>
+          <a href="#how">流程</a>
+          <a href="#start">开始使用</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow">科研写作与研究计划自动化</p>
+            <h1>从科研想法直达规范研究文案和LaTeX初稿</h1>
+            <p class="hero-copy">
+              以研究Idea为起点，自动整合文献检索、研究意义分析和Overleaf兼容的LaTeX输出，帮助科研人员、企业研发与咨询团队快速进入成果撰写阶段。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#start">立即开始</a>
+              <a class="btn btn-secondary" href="#how">了解流程</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <h2>适用场景</h2>
+            <ul>
+              <li>论文初稿与研究方案快速成型</li>
+              <li>学术投稿、基金申请与技术报告准备</li>
+              <li>企业研究报告、创新方案与咨询成果整理</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="section feature-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">服务价值</p>
+            <h2>为研究型写作提供稳定、高效的起点</h2>
+            <p class="section-copy">
+              结合文献检索、参考文献管理和LaTeX规范输出，确保每一次研究方案都符合专业写作标准。无需手工整理研究背景、文献综述和研究意义，节省时间、提高稳定性。
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h3>智能文献综述</h3>
+              <p>基于Consensus检索结果，自动提取研究相关文献，生成可用的研究综述内容。</p>
+            </article>
+            <article class="feature-card">
+              <h3>Zotero同步</h3>
+              <p>自动生成BibTeX，并同步保存到Zotero，便于后续文献管理与修改。</p>
+            </article>
+            <article class="feature-card">
+              <h3>Overleaf兼容</h3>
+              <p>输出符合期刊LaTeX模板的论文初稿格式，直接用于Overleaf或本地编译。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="section process-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">工作流程</p>
+            <h2>4 步完成研究文案初稿</h2>
+          </div>
+          <div class="process-grid">
+            <article class="process-step">
+              <span>1</span>
+              <h3>提交研究Idea</h3>
+              <p>填写研究主题、领域、目标期刊和期望输出形式。</p>
+            </article>
+            <article class="process-step">
+              <span>2</span>
+              <h3>自动检索文献</h3>
+              <p>基于Idea搜索Consensus，提取关键文献并生成BibTeX条目。</p>
+            </article>
+            <article class="process-step">
+              <span>3</span>
+              <h3>生成研究概述</h3>
+              <p>输出研究背景、研究意义、现状不足与研究方向的规范文案。</p>
+            </article>
+            <article class="process-step">
+              <span>4</span>
+              <h3>下载LaTeX初稿</h3>
+              <p>提供Overleaf兼容的tex文件、参考文献库和可视化文案预览。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="start" class="section form-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow">开始使用</p>
+            <h2>提交你的研究Idea，体验初稿生成</h2>
+          </div>
+          <form id="idea-form" class="idea-form">
+            <div class="form-grid">
+              <label>
+                研究主题 / Idea
+                <textarea id="idea" rows="4" placeholder="请输入您的研究想法或课题方向" required></textarea>
+              </label>
+              <label>
+                研究领域
+                <input id="field" type="text" placeholder="例如：计算机视觉 / 生物医学 / 社会科学" required />
+              </label>
+              <label>
+                目标期刊 / 期刊类型
+                <input id="journal" type="text" placeholder="例如：IEEE Transactions / Nature Communications" />
+              </label>
+              <label>
+                输出格式
+                <select id="output-format">
+                  <option value="tex">LaTeX (.tex + .bib)</option>
+                  <option value="md">Markdown (.md)</option>
+                  <option value="docx">Word (.docx)</option>
+                </select>
+              </label>
+              <label>
+                联系邮箱
+                <input id="email" type="email" placeholder="example@domain.com" required />
+              </label>
+            </div>
+            <div class="form-action">
+              <button type="submit" class="btn btn-primary">提交研究Idea</button>
+              <p class="form-note">我们会根据您的输入准备规范研究文案，并尽快与您联系。</p>
+            </div>
+          </form>
+          <div id="form-result" class="form-result hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>ResearchDraft.ai 为科研写作提供研究方案生成与文献管理支持。页面内容仅为服务说明，实际产品支持后端接口对接与定制化服务。</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
