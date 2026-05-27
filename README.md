@@ -1,20 +1,39 @@
 # ResearchDraft.ai
 
-[中文说明](README.zh-CN.md) | English
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![LaTeX](https://img.shields.io/badge/Export-LaTeX%20%2B%20PDF-008080)](https://www.latex-project.org/)
+[![Zotero](https://img.shields.io/badge/Literature-Zotero-CC2936)](https://www.zotero.org/)
+[![Local First](https://img.shields.io/badge/Mode-Local--First-2E7D32)](#why-researchdraftai)
 
-ResearchDraft.ai is a local-first research drafting workflow for turning a research idea, data description, and curated literature sources into an auditable manuscript package.
+English | [中文说明](README.zh-CN.md)
 
-It is designed for researchers who want AI assistance without losing control of references, LaTeX files, BibTeX entries, PDF compilation, and quality checks.
+ResearchDraft.ai turns a research idea, data description, and curated literature sources into an auditable, editable, and compilable draft package.
 
-## Highlights
+It is not an AI paper ghostwriter. The goal is to help researchers organize early-stage writing materials into a traceable manuscript scaffold: Markdown, LaTeX, BibTeX, PDF, literature summaries, and a quality report that can be inspected and revised by humans.
 
-- Zotero collection import for project-specific references.
-- External scholarly metadata supplementation when local references are insufficient.
-- English publishable-paper-oriented draft generation.
-- Markdown, LaTeX, BibTeX, and PDF export.
-- Per-paper HTML literature summaries.
-- Quality reports for section alignment, citation/BibTeX consistency, URL handling, math hygiene, and PDF generation.
-- Static frontend plus local Flask backend.
+## Why ResearchDraft.ai
+
+Research writing usually starts with scattered inputs: an idea, data notes, Zotero folders, public dataset links, method sketches, and target journal expectations. ResearchDraft.ai connects these inputs into one local workflow so that each generated draft remains reviewable instead of being a black-box AI answer.
+
+The current MVP is designed for researchers who care about:
+
+- data-aware draft generation from both idea and data description;
+- Zotero collection-based literature control;
+- optional external scholarly search when local references are insufficient;
+- citation traceability through BibTeX and LaTeX citation keys;
+- PDF preview for manual review;
+- local-first execution before any hosted or commercial deployment.
+
+## Core Features
+
+- Import references from a selected Zotero collection.
+- Supplement references through external scholarly search when needed.
+- Generate English research draft packages for scientific manuscript planning.
+- Export Markdown, LaTeX, BibTeX, and compiled PDF files.
+- Generate per-paper HTML literature summaries.
+- Create a quality report for section alignment, citation/BibTeX consistency, URL handling, math hygiene, and PDF generation.
+- Run as a static frontend plus a local Flask backend.
 
 ## Repository Layout
 
@@ -34,15 +53,15 @@ PROJECT_SUMMARY.md            Project handoff notes
 
 Open `docs/code_structure.html` for a generated map of the Python module structure.
 
-## One-Command Local Setup
-
-Requirements:
+## Requirements
 
 - Windows PowerShell
 - Python 3.10+
-- Optional but recommended: MiKTeX or TeX Live for PDF generation
+- Optional but recommended: MiKTeX or TeX Live for PDF compilation
+- Optional: Node.js for frontend syntax checks
+- Optional: Zotero account and API key for collection-based literature import
 
-Run:
+## One-Command Local Setup
 
 ```powershell
 git clone https://github.com/xiejhhhhhh/ResearchDraft.ai.git
@@ -50,12 +69,7 @@ cd ResearchDraft.ai
 .\scripts\setup_local.ps1
 ```
 
-The setup script will:
-
-- create `.venv`;
-- install Python dependencies;
-- copy `research_paper_agent\.env.example` to `research_paper_agent\.env` if needed;
-- run backend unit checks.
+The setup script creates a virtual environment, installs Python dependencies, prepares the local `.env` template when needed, and runs basic backend checks.
 
 Then edit:
 
@@ -72,8 +86,6 @@ ZOTERO_LIBRARY_ID=your_zotero_library_id
 ZOTERO_API_KEY=your_zotero_api_key
 ZOTERO_LIBRARY_TYPE=user
 ```
-
-Do not commit `.env`.
 
 ## Start the App
 
@@ -110,17 +122,12 @@ http://127.0.0.1:9000/api/zotero/collections
 ## Basic Usage
 
 1. Start the backend and frontend.
-2. Select a literature source:
-   - Zotero collection, or
+2. Choose a literature source:
+   - a Zotero collection, or
    - external scholarly search.
-3. Enter:
-   - research idea;
-   - research field or aim;
-   - data description;
-   - target journal, if available;
-   - output format, usually `tex`.
+3. Enter the research idea, research field or aim, data description, target journal, and output format.
 4. Submit the form.
-5. Download generated files:
+5. Review and download the generated package:
    - `.md`
    - `.tex`
    - `.bib`
@@ -128,13 +135,11 @@ http://127.0.0.1:9000/api/zotero/collections
    - literature HTML summaries
    - quality report JSON
 
-Generated artifacts are saved under:
+Generated files are saved locally under:
 
 ```text
 research_paper_agent\data\
 ```
-
-This folder is ignored by git.
 
 ## Run Checks
 
@@ -157,30 +162,23 @@ cd docs
 node --check app.js
 ```
 
-## Security
+## Product Direction
 
-Never commit:
+The current release is a local MVP for single-user research drafting. It is intended to prove the workflow before moving toward a hosted commercial product.
 
-- `research_paper_agent/.env`
-- generated drafts, PDFs, BibTeX files, and literature summaries
-- `research_paper_agent/data/submissions.json`
-- cache files
-- local tools under `.tools/`
+Future hosted versions should focus on researcher trust and production usability:
 
-The repository includes `.gitignore` rules for these paths.
+- account login and project-level user isolation;
+- authenticated downloads and API rate limiting;
+- usage and cost tracking for AI and literature retrieval;
+- user-controlled data deletion and retention settings;
+- SSRF protection for external URLs and file retrieval;
+- prompt-injection defenses when processing uploaded or retrieved text;
+- a guided setup page for AI keys, Zotero, LaTeX, and PDF compilation;
+- a Trust Dashboard for citation traceability, AI disclosure, source provenance, and quality checks.
 
-## Current MVP Boundary
+Research users are sensitive to different concerns in different markets. European and North American users often prioritize data privacy, citation traceability, and AI disclosure. Chinese users often care more about availability, Chinese-language cost, Zotero convenience, and local deployment. ResearchDraft.ai should support both by keeping the local workflow transparent while preparing a safer hosted experience.
 
-MVP2 is a local, single-user research drafting workflow. It is not yet a hosted multi-user SaaS product.
+## Intended Use
 
-Before commercial hosting, add:
-
-- authentication;
-- per-user project isolation;
-- signed downloads;
-- rate limiting;
-- task queues;
-- cloud storage policy;
-- audit logs;
-- privacy and data-retention controls.
-
+ResearchDraft.ai is best used as a research planning and drafting assistant. It helps convert structured inputs into a draft package that researchers can inspect, correct, cite, compile, and rewrite. It does not replace expert judgment, domain validation, experiment design, authorship responsibility, or journal compliance review.

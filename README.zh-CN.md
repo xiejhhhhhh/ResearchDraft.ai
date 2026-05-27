@@ -1,20 +1,39 @@
 # ResearchDraft.ai
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![LaTeX](https://img.shields.io/badge/Export-LaTeX%20%2B%20PDF-008080)](https://www.latex-project.org/)
+[![Zotero](https://img.shields.io/badge/Literature-Zotero-CC2936)](https://www.zotero.org/)
+[![Local First](https://img.shields.io/badge/Mode-Local--First-2E7D32)](#为什么是-researchdraftai)
+
 中文说明 | [English](README.md)
 
-ResearchDraft.ai 是一个本地优先的科研论文初稿工作流工具，用于把研究 idea、数据描述和参考文献来源转化为可审查、可修改、可编译的论文初稿材料包。
+ResearchDraft.ai 是一个本地优先的科研写作工作流工具，用于把研究 idea、data description、Zotero 或外部检索文献整理成可审查、可修改、可编译的 draft package。
 
-它适合希望使用 AI 辅助科研写作，但又希望保留文献、LaTeX、BibTeX、PDF 和质量检查控制权的研究者。
+它不是“AI 代写论文”工具。它的目标是帮助科研用户把早期写作材料整理成透明、可追踪、可人工修改的论文初稿材料包，包括 Markdown、LaTeX、BibTeX、PDF、单篇文献总结和质量检查报告。
+
+## 为什么是 ResearchDraft.ai
+
+科研写作的起点通常不是一段完整 prompt，而是分散的信息：研究想法、数据说明、Zotero 文件夹、公开数据链接、方法草图和目标期刊要求。ResearchDraft.ai 试图把这些信息连接成一个本地流程，让生成结果不是黑箱回答，而是可检查、可修改、可复现的材料包。
+
+当前 MVP 面向重视以下能力的科研用户：
+
+- 同时基于 idea 和 data description 生成论文初稿；
+- 通过 Zotero collection 控制每篇文章使用哪些文献；
+- 当本地参考文献不足时，可以用外部学术检索补充；
+- 通过 BibTeX 和 LaTeX citation key 保持引用可追踪；
+- 生成 PDF 方便人工检阅；
+- 在云端商业化之前，先跑通本地可控流程。
 
 ## 核心功能
 
 - 从指定 Zotero collection 导入项目文献。
-- 当本地文献不足时，支持外部学术元数据检索补充。
-- 生成英文、面向可发表论文结构的研究大纲。
+- 在文献不足时支持外部学术检索补充。
+- 生成英文、面向可发表论文结构的研究初稿。
 - 导出 Markdown、LaTeX、BibTeX 和 PDF。
 - 为单篇参考文献生成 HTML 总结。
-- 生成质量检查报告，检查章节一致性、引用和 BibTeX 对应关系、URL、公式和 PDF 编译状态。
-- 静态前端加本地 Flask 后端，便于本地测试和二次开发。
+- 生成质量检查报告，检查章节一致性、引用与 BibTeX 对应关系、URL 处理、公式格式和 PDF 编译状态。
+- 静态前端加本地 Flask 后端，方便本地测试和二次开发。
 
 ## 项目结构
 
@@ -34,15 +53,15 @@ PROJECT_SUMMARY.md            项目接手说明
 
 可以打开 `docs/code_structure.html` 查看当前 Python 模块结构图。
 
-## 一键本地安装
-
-环境要求：
+## 环境要求
 
 - Windows PowerShell
 - Python 3.10+
-- 可选但推荐：MiKTeX 或 TeX Live，用于 PDF 生成
+- 可选但推荐：MiKTeX 或 TeX Live，用于 PDF 编译
+- 可选：Node.js，用于前端语法检查
+- 可选：Zotero 账号和 API key，用于按 collection 导入文献
 
-运行：
+## 一键本地安装
 
 ```powershell
 git clone https://github.com/xiejhhhhhh/ResearchDraft.ai.git
@@ -50,12 +69,7 @@ cd ResearchDraft.ai
 .\scripts\setup_local.ps1
 ```
 
-该脚本会自动：
-
-- 创建 `.venv`
-- 安装 Python 依赖
-- 如果还没有 `.env`，则从 `research_paper_agent\.env.example` 复制生成
-- 运行后端基础检查
+该脚本会创建虚拟环境、安装 Python 依赖、在需要时准备本地 `.env` 模板，并运行基础后端检查。
 
 然后编辑：
 
@@ -72,8 +86,6 @@ ZOTERO_LIBRARY_ID=your_zotero_library_id
 ZOTERO_API_KEY=your_zotero_api_key
 ZOTERO_LIBRARY_TYPE=user
 ```
-
-不要提交 `.env`。
 
 ## 启动服务
 
@@ -113,14 +125,9 @@ http://127.0.0.1:9000/api/zotero/collections
 2. 选择文献来源：
    - Zotero collection，或
    - 外部学术检索。
-3. 填写：
-   - 研究 idea；
-   - 研究领域或研究目标；
-   - 数据描述；
-   - 目标期刊，如果已有；
-   - 输出格式，通常选择 `tex`。
+3. 填写研究 idea、研究领域或目标、数据描述、目标期刊和输出格式。
 4. 提交表单。
-5. 下载生成文件：
+5. 查看并下载生成材料：
    - `.md`
    - `.tex`
    - `.bib`
@@ -128,13 +135,11 @@ http://127.0.0.1:9000/api/zotero/collections
    - 单篇文献 HTML 总结
    - 质量检查 JSON
 
-生成文件保存在：
+生成文件会保存在本地：
 
 ```text
 research_paper_agent\data\
 ```
-
-该目录已被 git 忽略。
 
 ## 运行检查
 
@@ -150,37 +155,30 @@ python -m py_compile service.py api.py models.py literature\external_search.py l
 python -m unittest tests.test_quality_gate tests.test_export_helpers tests.test_literature_and_prompts
 ```
 
-如果已安装 Node.js，可以检查前端语法：
+如果已经安装 Node.js，可以检查前端语法：
 
 ```powershell
 cd docs
 node --check app.js
 ```
 
-## 安全说明
+## 产品方向
 
-不要提交：
+当前版本聚焦本地单用户科研写作流程，用于验证从 idea、data description、文献组织到 draft package 的完整路径。后续托管版本会在此基础上补齐多用户协作、数据治理和可信 AI 使用能力。
 
-- `research_paper_agent/.env`
-- 生成的草稿、PDF、BibTeX 和文献总结
-- `research_paper_agent/data/submissions.json`
-- 缓存文件
-- `.tools/` 下的本地工具
+后续如果开发商业化托管版，重点应该补齐科研用户信任和生产环境能力：
 
-仓库中的 `.gitignore` 已经包含这些路径。
+- 用户登录和项目级用户隔离；
+- 下载鉴权和 API 限流；
+- AI 与文献检索的费用统计；
+- 用户可控的数据删除和保留策略；
+- 外部 URL 与文件访问中的 SSRF 防护；
+- 处理上传或检索文本时的 prompt injection 防护；
+- 用于配置 AI key、Zotero、LaTeX 和 PDF 编译的 Setup 页面；
+- Trust Dashboard，用于展示引用溯源、AI disclosure、来源证据和质量检查结果。
 
-## 当前 MVP 边界
+不同地区科研用户关注点不同。欧美用户通常更在意 data privacy、citation traceability 和 AI disclosure；中国用户通常更在意可用性、中文环境成本、Zotero 便利性和本地部署。ResearchDraft.ai 的路线应同时保留本地透明性，并逐步准备更安全的托管体验。
 
-MVP2 是一个本地单用户科研写作工作流，不是完整的云端多用户 SaaS。
+## 适用边界
 
-如果后续要做商业化托管版，需要继续补充：
-
-- 用户登录
-- 用户和项目隔离
-- 下载鉴权
-- API 限流
-- 后台任务队列
-- 云端存储策略
-- 审计日志
-- 隐私政策和数据保留策略
-
+ResearchDraft.ai 适合作为科研规划和初稿整理助手。它帮助用户把结构化输入转化为可审查、可修改、可引用、可编译的材料包，但不能替代专家判断、领域验证、实验设计、作者责任或期刊合规审查。
