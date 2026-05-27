@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResearchDraft.ai 完整论文大纲 Demo</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #d9e2ef;
+      --blue: #1a6cff;
+      --blue-soft: #eef5ff;
+      --green-soft: #edf8f0;
+      --paper: #ffffff;
+      --wash: #f6f8fb;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--wash);
+      line-height: 1.7;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 20px 64px;
+    }
+
+    .hero {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 880px;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 920px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 28px 0;
+    }
+
+    .step {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 110px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #0d3f8f;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 26px;
+      margin-top: 18px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .note {
+      background: var(--blue-soft);
+      border-left: 4px solid var(--blue);
+      padding: 14px 16px;
+      margin: 16px 0;
+      color: #18345f;
+    }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .artifact {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .artifact code {
+      display: block;
+      margin-bottom: 8px;
+      color: #0d3f8f;
+      word-break: break-word;
+    }
+
+    .section-rule {
+      border-top: 1px solid var(--line);
+      margin: 24px 0;
+    }
+
+    .demo-paper {
+      counter-reset: section;
+    }
+
+    .demo-paper section {
+      padding-top: 6px;
+    }
+
+    .demo-paper h2::before {
+      counter-increment: section;
+      content: counter(section) ". ";
+      color: var(--blue);
+    }
+
+    .citation {
+      color: #315c99;
+      white-space: nowrap;
+    }
+
+    .figure-plan {
+      background: var(--green-soft);
+      border: 1px solid #cfe9d7;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+
+    .compact-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .compact-list li {
+      margin: 6px 0;
+    }
+
+    @media (max-width: 860px) {
+      .workflow,
+      .artifact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">ResearchDraft.ai manuscript outline demo</p>
+      <h1>从 Idea、Data Description 和指定文献集合生成可扩写为发表论文的英文初稿大纲</h1>
+      <p class="lead">
+        这个 demo 展示新的输出目标：不是短 proposal，也不是模板化摘要，而是一份能继续扩写成论文的写作骨架。系统先总结参考文献，再围绕研究背景、数据构建、方法设计、预期结果和讨论逻辑生成自然连贯的英文大纲。
+      </p>
+    </header>
+
+    <div class="workflow">
+      <div class="step">
+        <strong>1. 文献输入</strong>
+        读取用户选择的 Zotero collection。若本地文献少于 10 篇，再补充外部检索文献。
+      </div>
+      <div class="step">
+        <strong>2. 单篇总结</strong>
+        对每篇文献总结摘要、数据、方法、结果、不足和核心图表线索，并保存为 HTML。
+      </div>
+      <div class="step">
+        <strong>3. 数据与方法</strong>
+        根据用户填写的数据介绍推导预处理、公式、demo_data.py 和 demo_method.py 工作流。
+      </div>
+      <div class="step">
+        <strong>4. 论文大纲</strong>
+        输出 Markdown、LaTeX、BibTeX，并在 submissions.json 只保留元数据和文件路径。
+      </div>
+    </div>
+
+    <section class="panel">
+      <h2>提交示例</h2>
+      <p><strong>Idea:</strong> Early Detection of Potato Diseases During the Growing Season Using Multi-Agent Machine Learning</p>
+      <p><strong>Data Description:</strong> Sentinel-2 satellite imagery, ERA5 meteorological reanalysis, ISRIC SoilGrids, UAV crop disease imagery, PlantVillage/Kaggle plant disease images, field surveys, experimental station records, and agricultural monitoring datasets.</p>
+      <p><strong>Collection:</strong> Potato Disease Detection</p>
+      <p class="note">注意：已有研究方案文档只作为后续评估与对比优化材料，不作为初始 prompt 的已知内容输入。Agent 应先按流程收集文献和数据逻辑，再与参考方案对比。</p>
+    </section>
+
+    <section class="panel">
+      <h2>生成文件结构</h2>
+      <div class="artifact-grid">
+        <div class="artifact">
+          <code>data/literature_summaries/&lt;task_id&gt;/existing_01.html</code>
+          Zotero collection 中已有文献的单篇总结。
+        </div>
+        <div class="artifact">
+          <code>data/literature_summaries/&lt;task_id&gt;/supplemental_01.html</code>
+          当本地文献少于 10 篇时，外部检索补充文献的单篇总结。
+        </div>
+        <div class="artifact">
+          <code>data/drafts/draft_*.md / .tex / .bib</code>
+          论文大纲、LaTeX 初稿和 BibTeX 文献库。
+        </div>
+        <div class="artifact">
+          <code>data/drafts/demo_data_*.py</code>
+          数据清洗、归一化、时间聚合和特征融合的可执行雏形。
+        </div>
+        <div class="artifact">
+          <code>data/drafts/demo_method_*.py</code>
+          多智能体预测、融合和风险评分的模型雏形。
+        </div>
+        <div class="artifact">
+          <code>data/submissions.json</code>
+          仅保存提交信息、collection、标题、字数、状态和文件路径。
+        </div>
+      </div>
+    </section>
+
+    <article class="panel demo-paper">
+      <section>
+        <h2>Literature Synthesis Before Writing</h2>
+        <p>
+          Before drafting the manuscript, the agent writes one compact synthesis for every cited paper. Each synthesis records the paper's research question, data, methods, scientific findings, limitations, and relevance weight. Zotero papers and supplemental search papers are kept distinguishable through their HTML filenames and metadata. The draft then gives stronger narrative space to highly relevant and more authoritative studies, while still making clear where evidence is weak or not directly transferable.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Introduction</h2>
+        <p>
+          The first paragraph introduces the broad problem and core concepts. For the potato disease detection example, it should explain why in-season disease monitoring matters for crop yield, pesticide timing, and precision agriculture, and why remote sensing and machine learning have become central tools for field-scale disease surveillance.
+        </p>
+        <p>
+          The second paragraph reviews current research status by synthesizing the selected references. It should connect image-based plant disease recognition, UAV and satellite monitoring, environmental drivers of disease risk, and machine-learning classification into a coherent research landscape, with author-year citations such as <span class="citation">(Author, Year)</span>.
+        </p>
+        <p>
+          The third paragraph identifies the specific gaps that justify the new study. These gaps should not be generic. They should explain, for example, why many models remain single-source, image-only, spatially local, or weakly validated across growth stages, and how these weaknesses limit early detection during the growing season.
+        </p>
+        <p>
+          The fourth paragraph states the purpose and value of the study. It should describe what the research does, how multi-agent learning organizes heterogeneous data sources, and why the resulting framework could improve early warning, field management, and scientific understanding of crop disease dynamics.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Data</h2>
+        <p>
+          The first data paragraph introduces all data sources and their roles. In the test case, Sentinel-2 provides field-scale optical time series, ERA5 supplies meteorological context, SoilGrids characterizes soil background, UAV imagery supports fine-grained visual disease evidence, PlantVillage/Kaggle images support controlled visual symptom learning, and field surveys or station records provide ground-truth labels.
+        </p>
+        <p>
+          The second paragraph explains data construction and preprocessing. It should cover cloud filtering, spatial alignment, temporal aggregation, image normalization, label harmonization, and quality control. A typical vegetation-index or feature-standardization formula can be written as \(z=(x-\mu)/(\sigma+\epsilon)\), while time-window aggregation can be expressed as \(\bar{x}_{t}=\frac{1}{k}\sum_{i=t-k+1}^{t}x_i\).
+        </p>
+        <p>
+          The third paragraph explains how processed data become model-ready inputs. It should describe multimodal feature fusion, uncertainty handling, class imbalance, train-validation splits by field or season, and the role of `demo_data.py` when no existing GitHub implementation is available.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Methods</h2>
+        <p>
+          The first methods paragraph explains the model architecture. For this example, each data source can be represented by a specialized agent: a satellite time-series agent, a meteorological-risk agent, a soil-context agent, a UAV/image agent, and a label-quality agent. Each agent produces disease evidence that is later fused.
+        </p>
+        <p>
+          The second paragraph formalizes the fusion logic. A concise expression such as \(p(y|X)=\sum_{m=1}^{M}\alpha_m p_m(y|X_m)\) can show how agent outputs are combined, where \(\alpha_m\) reflects source reliability, temporal relevance, or validation performance.
+        </p>
+        <p>
+          The third paragraph describes training and evaluation. It should cover loss functions, temporal validation, disease-risk scoring, accuracy metrics, calibration, and ablation analysis. If no paper-specific GitHub code exists, `demo_method.py` provides an auditable scaffold before a full model is implemented.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Results</h2>
+        <p>
+          The first result paragraph should answer the gap that many disease-detection studies are image-only or single-source. It should explain how the proposed data pipeline creates an AI-ready multi-source representation for early-season disease risk, without inserting literature citations.
+        </p>
+        <p>
+          The second result paragraph should answer the gap that current models often lack temporal and environmental reasoning. It should describe whether multi-agent fusion improves early detection before visible symptoms become spatially extensive.
+        </p>
+        <p>
+          The third result paragraph should highlight the innovation that the method is not only a classifier but also a decision-support framework. It should connect risk maps, uncertainty, and targeted field scouting into a clear expected scientific contribution.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Figure and Table Plan</h2>
+        <div class="figure-plan">
+          The figure plan is now a standalone section after Results. It should follow the manuscript narrative and show how each figure or table resolves a limitation in existing research or demonstrates the new method's innovation.
+        </div>
+        <h3>Final Figure List</h3>
+        <ul class="compact-list">
+          <li>Fig. 1, Sec. 2: AI-ready multi-source potato disease monitoring pipeline.</li>
+          <li>Fig. 2, Sec. 3.1: Multi-agent architecture linking satellite, weather, soil, UAV, image, and field-label agents.</li>
+          <li>Fig. 3, Sec. 3.2: Early-season temporal disease-risk trajectories before visible disease expansion.</li>
+          <li>Fig. 4, Sec. 3.3: Multi-source fusion versus single-source baselines across growth stages.</li>
+          <li>Fig. 5, Sec. 4.1: Spatial disease-risk maps with uncertainty and targeted scouting zones.</li>
+          <li>Fig. 6, Sec. 4.2: Agent contribution and ablation analysis showing why each data source matters.</li>
+          <li>Fig. 7, Appendix: Robustness, stability, and cross-field extra views.</li>
+        </ul>
+        <h3>Final Table List</h3>
+        <ul class="compact-list">
+          <li>Table 1, Sec. 2: Data sources, spatial-temporal resolution, role, and quality limitations.</li>
+          <li>Table 2, Sec. 4.1: Performance comparison between single-source models and multi-agent fusion.</li>
+        </ul>
+        <h3>Final English Figure Title List</h3>
+        <ul class="compact-list">
+          <li>Fig. 1: AI-ready framework for in-season potato disease early warning.</li>
+          <li>Fig. 2: Multi-agent learning architecture for heterogeneous crop disease evidence.</li>
+          <li>Fig. 3: Early-season temporal risk signals derived from multi-source observations.</li>
+          <li>Fig. 4: Single-source baselines versus multi-agent fusion across growth stages.</li>
+          <li>Fig. 5: Spatial disease-risk maps with uncertainty-guided scouting zones.</li>
+          <li>Fig. 6: Agent contribution and ablation analysis for interpretable disease detection.</li>
+          <li>Fig. 7: Robustness and stability analysis across fields and observation windows.</li>
+        </ul>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>Discussion</h2>
+        <p>
+          The first discussion paragraph expands the main expected finding: early disease risk is not only an image-recognition problem but also a temporal and environmental inference problem. This gives the study a stronger scientific argument than simply applying a classifier to plant images.
+        </p>
+        <p>
+          The second paragraph discusses data complementarity. It should explain how satellite, weather, soil, UAV, and field-label information compensate for one another, while also acknowledging scale mismatch, cloud contamination, label uncertainty, and uneven sampling.
+        </p>
+        <p>
+          The third paragraph discusses model interpretability and deployment. It should address whether agent-specific outputs can help agronomists understand why a field is classified as high risk and whether the method could support seasonal monitoring rather than one-time diagnosis.
+        </p>
+        <p>
+          The fourth paragraph compares the proposed study with existing literature using citations from the selected references. The comparison should be specific: what prior work achieved, what data or validation it lacked, and how this study extends or differs from it.
+        </p>
+        <p>
+          The fifth paragraph states significance, limitations, and future work. It should return to the Introduction gaps and explain what remains unresolved, such as cross-region generalization, access to field labels, disease-specific validation, and the need for prospective field trials.
+        </p>
+      </section>
+
+      <div class="section-rule"></div>
+
+      <section>
+        <h2>References and Citation Output</h2>
+        <p>
+          Markdown output should use author-year citations in the body text. LaTeX output should be paired with a generated `.bib` file derived from Zotero or supplemental metadata. The `.tex` file should use BibTeX-compatible citation management so the draft can be moved into an Overleaf journal template with minimal manual work.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

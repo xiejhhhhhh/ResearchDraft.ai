@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ResearchDraft.ai Code Structure</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #102033;
+      --muted: #5d6b7c;
+      --line: #d9e2ec;
+      --panel: #ffffff;
+      --bg: #f5f8fb;
+      --accent: #1f6feb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    header {
+      padding: 32px min(6vw, 72px);
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: 0;
+    }
+    header p {
+      max-width: 960px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    main {
+      padding: 28px min(6vw, 72px) 48px;
+    }
+    section {
+      margin: 0 0 34px;
+    }
+    section > h1 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .module-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 172px;
+    }
+    .module-card h2 {
+      margin: 10px 0 10px;
+      font-size: 17px;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+    .module-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+    .meta span {
+      border: 1px solid rgba(31, 111, 235, 0.24);
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: rgba(31, 111, 235, 0.06);
+    }
+    footer {
+      padding: 18px min(6vw, 72px);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ResearchDraft.ai Code Structure</h1>
+    <p>这个页面由 <code>scripts/update_code_structure_html.py</code> 根据 <code>scripts/code_structure_manifest.json</code> 自动生成，用来追踪从 <code>service.py</code> 拆分出去的 Python 模块位置和职责。</p>
+  </header>
+  <main>
+    
+    <section>
+      <h1>Application orchestration</h1>
+      <div class="grid">
+        
+      <article class="module-card">
+        <div class="meta">
+          <span>Application orchestration</span>
+          <span>legacy core, shrinking</span>
+        </div>
+        <h2>research_paper_agent/service.py</h2>
+        <p>Request orchestration, draft generation workflow, file saving, submission metadata, and compatibility imports for split modules.</p>
+      </article>
+    
+      </div>
+    </section>
+        
+    <section>
+      <h1>Export</h1>
+      <div class="grid">
+        
+      <article class="module-card">
+        <div class="meta">
+          <span>Export</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/export/bibtex.py</h2>
+        <p>Build stable citation keys, extract publication years, and generate BibTeX entries from Zotero or external literature metadata.</p>
+      </article>
+    
+
+      <article class="module-card">
+        <div class="meta">
+          <span>Export</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/export/latex_text.py</h2>
+        <p>Escape LaTeX special characters, normalize URLs, and render clickable line-breakable LaTeX links.</p>
+      </article>
+    
+
+      <article class="module-card">
+        <div class="meta">
+          <span>Export</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/export/pdf.py</h2>
+        <p>Locate local LaTeX tools, run xelatex/pdflatex and bibtex, write compile logs, and return PDF generation status.</p>
+      </article>
+    
+      </div>
+    </section>
+        
+    <section>
+      <h1>Validation</h1>
+      <div class="grid">
+        
+      <article class="module-card">
+        <div class="meta">
+          <span>Validation</span>
+          <span>new Phase 1 module</span>
+        </div>
+        <h2>research_paper_agent/validation/quality_gate.py</h2>
+        <p>Validate generated Markdown, LaTeX, BibTeX, PDF, URLs, math delimiters, bibliography links, and section alignment.</p>
+      </article>
+    
+      </div>
+    </section>
+        
+    <section>
+      <h1>Literature</h1>
+      <div class="grid">
+        
+      <article class="module-card">
+        <div class="meta">
+          <span>Literature</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/literature/external_search.py</h2>
+        <p>Search external scholarly metadata through Semantic Scholar, arXiv, Crossref, and optional SerpApi Google Scholar; clean, deduplicate, and normalize supplemental references.</p>
+      </article>
+    
+
+      <article class="module-card">
+        <div class="meta">
+          <span>Literature</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/literature/zotero.py</h2>
+        <p>Create Zotero clients from environment variables, list collections, read only selected collection items, and optionally sync supplemental external references back to Zotero.</p>
+      </article>
+    
+
+      <article class="module-card">
+        <div class="meta">
+          <span>Literature</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/literature/ranking.py</h2>
+        <p>Compute literature relevance and authority weights using idea overlap, citation counts, and EasyScholar journal rank metadata.</p>
+      </article>
+    
+      </div>
+    </section>
+        
+    <section>
+      <h1>Generation</h1>
+      <div class="grid">
+        
+      <article class="module-card">
+        <div class="meta">
+          <span>Generation</span>
+          <span>split from service.py</span>
+        </div>
+        <h2>research_paper_agent/generation/prompts.py</h2>
+        <p>Build the strict publishable-outline prompt, including data description handling, dataset URL hints, section order, citation rules, and figure/table plan requirements.</p>
+      </article>
+    
+      </div>
+    </section>
+        
+  </main>
+  <footer>
+    Manifest updated: 2026-05-26. HTML generated: 2026-05-26T14:47:23.450954Z.
+  </footer>
+</body>
+</html>

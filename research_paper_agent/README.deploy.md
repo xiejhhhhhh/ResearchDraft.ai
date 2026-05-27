@@ -16,7 +16,7 @@ docker# ResearchDraft.ai 后端部署说明
 
 1. 进入项目目录：
    ```powershell
-   cd c:\Python_code\research_paper_agent
+   cd D:\DraftAI_agent\research_paper_agent
    ```
 
 2. 安装依赖：
@@ -125,7 +125,6 @@ docker# ResearchDraft.ai 后端部署说明
 ## 7. 进一步扩展
 
 后续可对后端继续扩展：
-- Consensus 文献检索接口
-- Zotero 同步接入
+- Zotero 文献检索和引用管理
 - 研究文案生成队列
 - 用户管理与付费下单接口

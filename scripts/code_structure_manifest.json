@@ -1,0 +1,59 @@
+{
+  "updated": "2026-05-26",
+  "modules": [
+    {
+      "path": "research_paper_agent/service.py",
+      "area": "Application orchestration",
+      "status": "legacy core, shrinking",
+      "functions": "Request orchestration, draft generation workflow, file saving, submission metadata, and compatibility imports for split modules."
+    },
+    {
+      "path": "research_paper_agent/export/bibtex.py",
+      "area": "Export",
+      "status": "split from service.py",
+      "functions": "Build stable citation keys, extract publication years, and generate BibTeX entries from Zotero or external literature metadata."
+    },
+    {
+      "path": "research_paper_agent/export/latex_text.py",
+      "area": "Export",
+      "status": "split from service.py",
+      "functions": "Escape LaTeX special characters, normalize URLs, and render clickable line-breakable LaTeX links."
+    },
+    {
+      "path": "research_paper_agent/export/pdf.py",
+      "area": "Export",
+      "status": "split from service.py",
+      "functions": "Locate local LaTeX tools, run xelatex/pdflatex and bibtex, write compile logs, and return PDF generation status."
+    },
+    {
+      "path": "research_paper_agent/validation/quality_gate.py",
+      "area": "Validation",
+      "status": "new Phase 1 module",
+      "functions": "Validate generated Markdown, LaTeX, BibTeX, PDF, URLs, math delimiters, bibliography links, and section alignment."
+    },
+    {
+      "path": "research_paper_agent/literature/external_search.py",
+      "area": "Literature",
+      "status": "split from service.py",
+      "functions": "Search external scholarly metadata through Semantic Scholar, arXiv, Crossref, and optional SerpApi Google Scholar; clean, deduplicate, and normalize supplemental references."
+    },
+    {
+      "path": "research_paper_agent/literature/zotero.py",
+      "area": "Literature",
+      "status": "split from service.py",
+      "functions": "Create Zotero clients from environment variables, list collections, read only selected collection items, and optionally sync supplemental external references back to Zotero."
+    },
+    {
+      "path": "research_paper_agent/literature/ranking.py",
+      "area": "Literature",
+      "status": "split from service.py",
+      "functions": "Compute literature relevance and authority weights using idea overlap, citation counts, and EasyScholar journal rank metadata."
+    },
+    {
+      "path": "research_paper_agent/generation/prompts.py",
+      "area": "Generation",
+      "status": "split from service.py",
+      "functions": "Build the strict publishable-outline prompt, including data description handling, dataset URL hints, section order, citation rules, and figure/table plan requirements."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+research_paper_agent/.env
+research_paper_agent/data/submissions_legacy_corrupt_*.json
+research_paper_agent/__pycache__/
+research_paper_agent/**/__pycache__/
+research_paper_agent/data/drafts/*.tmp
+research_paper_agent/data/submissions.json
+research_paper_agent/data/drafts/
+research_paper_agent/data/literature_summaries/
+research_paper_agent/data/pdf_cache/
+research_paper_agent/data/easyscholar_cache.json
+research_paper_agent/data/external_search_cache.json
+.tools/

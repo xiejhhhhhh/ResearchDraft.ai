@@ -15,7 +15,7 @@
 在项目根目录执行：
 
 ```powershell
-cd c:\Python_code
+cd D:\DraftAI_agent
 docker build -t research-draft-backend ./research_paper_agent
 ```
 
@@ -350,8 +350,7 @@ research_paper_agent/data/submissions.json
 - [ ] 监控初期使用情况
 
 ### Phase 2：添加功能
-- [ ] Consensus API 集成
-- [ ] Zotero 同步
+- [ ] Zotero 文献检索和同步
 - [ ] 研究文案生成逻辑
 - [ ] LaTeX 模板填充
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ResearchDraft.ai | 科研文案生成服务</title>
+    <title>ResearchDraft.ai | Zotero-driven Research Drafts</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -11,10 +11,14 @@
       <div class="container header-inner">
         <div class="brand">ResearchDraft.ai</div>
         <nav class="nav-links">
-          <a href="#why">服务价值</a>
-          <a href="#how">流程</a>
-          <a href="#start">开始使用</a>
+          <a href="#why" data-i18n="nav.value">服务价值</a>
+          <a href="#how" data-i18n="nav.process">流程</a>
+          <a href="#start" data-i18n="nav.start">开始使用</a>
         </nav>
+        <div class="language-switch">
+          <button id="lang-zh" class="lang-btn active" type="button">中文</button>
+          <button id="lang-en" class="lang-btn" type="button">English</button>
+        </div>
       </div>
     </header>
 
@@ -22,22 +26,22 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <p class="eyebrow">科研写作与研究计划自动化</p>
-            <h1>从科研想法直达规范研究文案和LaTeX初稿</h1>
-            <p class="hero-copy">
-              以研究Idea为起点，自动整合文献检索、研究意义分析和Overleaf兼容的LaTeX输出，帮助科研人员、企业研发与咨询团队快速进入成果撰写阶段。
+            <p class="eyebrow" data-i18n="hero.eyebrow">Zotero 驱动的科研写作自动化</p>
+            <h1 data-i18n="hero.title">从指定 Zotero 文献文件夹生成英文研究初稿和 LaTeX 文件</h1>
+            <p class="hero-copy" data-i18n="hero.description">
+              先在 Zotero 中按研究项目整理文献，系统只读取被选择的 collection。若该文件夹不足 20 篇参考文献，后端会自动补充外部学术索引结果，并生成英文研究文案、Markdown、LaTeX、BibTeX 和 PDF 审阅文件。
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#start">立即开始</a>
-              <a class="btn btn-secondary" href="#how">了解流程</a>
+              <a class="btn btn-primary" href="#start" data-i18n="hero.startBtn">立即开始</a>
+              <a class="btn btn-secondary" href="#how" data-i18n="hero.processBtn">了解流程</a>
             </div>
           </div>
           <div class="hero-card">
-            <h2>适用场景</h2>
+            <h2 data-i18n="hero.useCases">适用场景</h2>
             <ul>
-              <li>论文初稿与研究方案快速成型</li>
-              <li>学术投稿、基金申请与技术报告准备</li>
-              <li>企业研究报告、创新方案与咨询成果整理</li>
+              <li data-i18n="hero.useCase1">按 Zotero collection 管理不同论文的参考文献</li>
+              <li data-i18n="hero.useCase2">在文献不足时自动补足到 20 篇候选引用</li>
+              <li data-i18n="hero.useCase3">生成英文论文大纲、LaTeX、BibTeX 和 PDF 审阅稿</li>
             </ul>
           </div>
         </div>
@@ -46,24 +50,24 @@
       <section id="why" class="section feature-section">
         <div class="container">
           <div class="section-header">
-            <p class="eyebrow">服务价值</p>
-            <h2>为研究型写作提供稳定、高效的起点</h2>
-            <p class="section-copy">
-              结合文献检索、参考文献管理和LaTeX规范输出，确保每一次研究方案都符合专业写作标准。无需手工整理研究背景、文献综述和研究意义，节省时间、提高稳定性。
+            <p class="eyebrow" data-i18n="features.eyebrow">服务价值</p>
+            <h2 data-i18n="features.title">让引用来源可控，让初稿生成更贴近真实科研流程</h2>
+            <p class="section-copy" data-i18n="features.description">
+              当前版本采用 Zotero-first 工作流：用户选择一个 collection，系统只读取该文件夹内文献；若数量不足 20 篇，再自动补充外部学术索引结果，避免直接切换来源造成引用混乱。
             </p>
           </div>
           <div class="feature-grid">
             <article class="feature-card">
-              <h3>智能文献综述</h3>
-              <p>基于Consensus检索结果，自动提取研究相关文献，生成可用的研究综述内容。</p>
+              <h3 data-i18n="features.collection">Collection 精准引用</h3>
+              <p data-i18n="features.collectionDesc">每篇文章选择一个 Zotero 文件夹，系统不会回退到全库，减少误引其他项目文献的风险。</p>
             </article>
             <article class="feature-card">
-              <h3>Zotero同步</h3>
-              <p>自动生成BibTeX，并同步保存到Zotero，便于后续文献管理与修改。</p>
+              <h3 data-i18n="features.supplement">自动补充文献</h3>
+              <p data-i18n="features.supplementDesc">当已选 collection 少于 20 篇文献时，后端会自动检索相关英文文献并补足候选引用。</p>
             </article>
             <article class="feature-card">
-              <h3>Overleaf兼容</h3>
-              <p>输出符合期刊LaTeX模板的论文初稿格式，直接用于Overleaf或本地编译。</p>
+              <h3 data-i18n="features.bibtex">BibTeX 与 PDF 输出</h3>
+              <p data-i18n="features.bibtexDesc">基于文献元数据导出 BibTeX，并与 LaTeX 初稿、PDF 审阅稿一起保存，方便后续导入 Overleaf。</p>
             </article>
           </div>
         </div>
@@ -72,29 +76,29 @@
       <section id="how" class="section process-section">
         <div class="container">
           <div class="section-header">
-            <p class="eyebrow">工作流程</p>
-            <h2>4 步完成研究文案初稿</h2>
+            <p class="eyebrow" data-i18n="process.eyebrow">工作流程</p>
+            <h2 data-i18n="process.title">4 步完成 Zotero-backed research draft</h2>
           </div>
           <div class="process-grid">
             <article class="process-step">
               <span>1</span>
-              <h3>提交研究Idea</h3>
-              <p>填写研究主题、领域、目标期刊和期望输出形式。</p>
+              <h3 data-i18n="process.step1">整理 Zotero 文件夹</h3>
+              <p data-i18n="process.step1Desc">把本篇文章需要使用的文献放入一个明确命名的 Zotero collection。</p>
             </article>
             <article class="process-step">
               <span>2</span>
-              <h3>自动检索文献</h3>
-              <p>基于Idea搜索Consensus，提取关键文献并生成BibTeX条目。</p>
+              <h3 data-i18n="process.step2">选择 collection</h3>
+              <p data-i18n="process.step2Desc">页面从后端读取 Zotero collection 列表，用户选择本次写作对应的文献文件夹。</p>
             </article>
             <article class="process-step">
               <span>3</span>
-              <h3>生成研究概述</h3>
-              <p>输出研究背景、研究意义、现状不足与研究方向的规范文案。</p>
+              <h3 data-i18n="process.step3">生成英文初稿</h3>
+              <p data-i18n="process.step3Desc">AI 基于指定 collection 和自动补充文献构建背景、综述、数据、方法和预期结果。</p>
             </article>
             <article class="process-step">
               <span>4</span>
-              <h3>下载LaTeX初稿</h3>
-              <p>提供Overleaf兼容的tex文件、参考文献库和可视化文案预览。</p>
+              <h3 data-i18n="process.step4">下载文件</h3>
+              <p data-i18n="process.step4Desc">下载 Markdown、LaTeX、BibTeX 和 PDF 文件，并在本地或 Overleaf 中继续修改。</p>
             </article>
           </div>
         </div>
@@ -103,39 +107,64 @@
       <section id="start" class="section form-section">
         <div class="container">
           <div class="section-header">
-            <p class="eyebrow">开始使用</p>
-            <h2>提交你的研究Idea，体验初稿生成</h2>
+            <p class="eyebrow" data-i18n="form.eyebrow">开始使用</p>
+            <h2 data-i18n="form.title">提交研究方向并选择 Zotero 文献文件夹</h2>
           </div>
           <form id="idea-form" class="idea-form">
             <div class="form-grid">
-              <label>
-                研究主题 / Idea
-                <textarea id="idea" rows="4" placeholder="请输入您的研究想法或课题方向" required></textarea>
+              <label for="idea">
+                <span data-i18n="form.ideaLabel">研究主题 / Idea</span>
+                <textarea id="idea" rows="4" required></textarea>
               </label>
-              <label>
-                研究领域
-                <input id="field" type="text" placeholder="例如：计算机视觉 / 生物医学 / 社会科学" required />
+              <label for="field">
+                <span data-i18n="form.fieldLabel">研究领域</span>
+                <input id="field" type="text" required />
               </label>
-              <label>
-                目标期刊 / 期刊类型
-                <input id="journal" type="text" placeholder="例如：IEEE Transactions / Nature Communications" />
+              <label for="data-description">
+                <span data-i18n="form.dataLabel">数据介绍</span>
+                <textarea id="data-description" rows="4"></textarea>
+                <span class="checkbox-hint" data-i18n="form.dataHint">说明数据类型、来源、用途、质量、时间范围、空间范围和主要限制。</span>
               </label>
-              <label>
-                输出格式
+              <label for="literature-mode">
+                <span data-i18n="form.literatureModeLabel">引用文献来源</span>
+                <select id="literature-mode">
+                  <option value="zotero" data-i18n="form.modeZotero">从 Zotero collection 导入</option>
+                  <option value="external" data-i18n="form.modeExternal">外部学术检索</option>
+                </select>
+                <span class="checkbox-hint" data-i18n="form.literatureModeHint">Zotero 模式会优先读取指定文件夹；外部检索模式会直接检索 20 篇候选文献。</span>
+              </label>
+              <label for="collection">
+                <span data-i18n="form.collectionLabel">Zotero 文献文件夹</span>
+                <select id="collection" required>
+                  <option value="" data-i18n="form.collectionLoading">正在读取 Zotero collection...</option>
+                </select>
+                <span class="checkbox-hint" data-i18n="form.collectionHint">系统优先使用该文件夹中的文献；不足 20 篇时自动补充外部学术索引结果。</span>
+              </label>
+              <label for="journal">
+                <span data-i18n="form.journalLabel">目标期刊 / 期刊类型</span>
+                <input id="journal" type="text" />
+              </label>
+              <label for="output-format">
+                <span data-i18n="form.formatLabel">输出格式</span>
                 <select id="output-format">
-                  <option value="tex">LaTeX (.tex + .bib)</option>
+                  <option value="tex">LaTeX (.tex + .bib + .pdf)</option>
                   <option value="md">Markdown (.md)</option>
-                  <option value="docx">Word (.docx)</option>
+                  <option value="docx">Text placeholder (.txt)</option>
                 </select>
               </label>
-              <label>
-                联系邮箱
-                <input id="email" type="email" placeholder="example@domain.com" required />
+              <label class="checkbox-label" for="add-to-zotero">
+                <input id="add-to-zotero" type="checkbox" />
+                <span data-i18n="form.zoteroLabel">将补充检索到的文献同步回 Zotero</span>
+                <span class="checkbox-hint" data-i18n="form.zoteroHint">仅在自动补充外部文献时生效，会尝试把补充文献加入当前 collection。</span>
+              </label>
+              <label for="email">
+                <span data-i18n="form.emailLabel">联系邮箱</span>
+                <input id="email" type="email" required />
               </label>
             </div>
             <div class="form-action">
-              <button type="submit" class="btn btn-primary">提交研究Idea</button>
-              <p class="form-note">我们会根据您的输入准备规范研究文案，并尽快与您联系。</p>
+              <button type="submit" class="btn btn-primary" data-i18n="form.submitBtn">提交研究 Idea</button>
+              <p class="form-note" data-i18n="form.note">请先启动本地后端，再提交表单。</p>
             </div>
           </form>
           <div id="form-result" class="form-result hidden"></div>
@@ -145,10 +174,10 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>ResearchDraft.ai 为科研写作提供研究方案生成与文献管理支持。页面内容仅为服务说明，实际产品支持后端接口对接与定制化服务。</p>
+        <p data-i18n="footer">ResearchDraft.ai 当前是本地 MVP：前端负责提交，后端负责读取 Zotero、自动补充文献、生成草稿和保存文件。</p>
       </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20260521-external-search-fix"></script>
   </body>
 </html>
