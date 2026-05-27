@@ -5,6 +5,7 @@
 [![LaTeX](https://img.shields.io/badge/Export-LaTeX%20%2B%20PDF-008080)](https://www.latex-project.org/)
 [![Zotero](https://img.shields.io/badge/Literature-Zotero-CC2936)](https://www.zotero.org/)
 [![Local First](https://img.shields.io/badge/Mode-Local--First-2E7D32)](#why-researchdraftai)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 English | [中文说明](README.zh-CN.md)
 
