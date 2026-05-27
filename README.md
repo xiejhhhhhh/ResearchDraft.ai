@@ -1,70 +1,92 @@
 # ResearchDraft.ai
 
-ResearchDraft.ai is a local-first MVP for generating auditable research-draft packages from a research idea, data description, and literature sources.
+[中文说明](README.zh-CN.md) | English
 
-The current MVP2 workflow can:
+ResearchDraft.ai is a local-first research drafting workflow for turning a research idea, data description, and curated literature sources into an auditable manuscript package.
 
-- read references from a selected Zotero collection;
-- supplement references through external scholarly metadata search when needed;
-- generate an English publishable-paper-oriented outline;
-- export Markdown, LaTeX, BibTeX, and PDF review files;
-- generate per-paper HTML summaries;
-- run a quality gate for section alignment, BibTeX/citation consistency, URL handling, math hygiene, and PDF generation.
+It is designed for researchers who want AI assistance without losing control of references, LaTeX files, BibTeX entries, PDF compilation, and quality checks.
 
-## Repository Structure
+## Highlights
 
-```text
-docs/                     Static frontend and project structure pages
-research_paper_agent/     Flask backend and local generation engine
-scripts/                  Helper scripts, including code-structure HTML generation
-PROJECT_SUMMARY.md        Current project handoff notes
-```
+- Zotero collection import for project-specific references.
+- External scholarly metadata supplementation when local references are insufficient.
+- English publishable-paper-oriented draft generation.
+- Markdown, LaTeX, BibTeX, and PDF export.
+- Per-paper HTML literature summaries.
+- Quality reports for section alignment, citation/BibTeX consistency, URL handling, math hygiene, and PDF generation.
+- Static frontend plus local Flask backend.
 
-Important backend modules:
+## Repository Layout
 
 ```text
-research_paper_agent/literature/      Zotero, external search, and citation weighting
-research_paper_agent/export/          BibTeX, LaTeX text helpers, and PDF compilation
-research_paper_agent/generation/      Prompt construction
-research_paper_agent/validation/      Quality gate
+docs/                         Static frontend and documentation pages
+research_paper_agent/         Flask backend and research-draft engine
+research_paper_agent/export/  BibTeX, LaTeX text helpers, and PDF compilation
+research_paper_agent/literature/
+                              Zotero, external search, and reference weighting
+research_paper_agent/generation/
+                              Prompt construction
+research_paper_agent/validation/
+                              Quality gate
+scripts/                      Local setup, startup, checks, and structure docs
+PROJECT_SUMMARY.md            Project handoff notes
 ```
 
-Open `docs/code_structure.html` for a generated map of the current Python module layout.
+Open `docs/code_structure.html` for a generated map of the Python module structure.
 
-## Local Setup
+## One-Command Local Setup
+
+Requirements:
+
+- Windows PowerShell
+- Python 3.10+
+- Optional but recommended: MiKTeX or TeX Live for PDF generation
+
+Run:
 
 ```powershell
-cd research_paper_agent
-python -m pip install -r requirements.txt
-copy .env.example .env
+git clone https://github.com/xiejhhhhhh/ResearchDraft.ai.git
+cd ResearchDraft.ai
+.\scripts\setup_local.ps1
 ```
 
-Edit `.env` locally. Do not commit `.env`.
+The setup script will:
 
-At minimum, configure one AI provider and, for Zotero mode, Zotero credentials:
+- create `.venv`;
+- install Python dependencies;
+- copy `research_paper_agent\.env.example` to `research_paper_agent\.env` if needed;
+- run backend unit checks.
+
+Then edit:
+
+```text
+research_paper_agent\.env
+```
+
+Configure at least one AI provider. For Zotero mode, also configure Zotero:
 
 ```text
 VOLCENGINE_API_KEY=your_key_here
-VOLCENGINE_MODEL_ID=your_endpoint_or_model_id
+VOLCENGINE_MODEL_ID=your_model_or_endpoint_id
 ZOTERO_LIBRARY_ID=your_zotero_library_id
 ZOTERO_API_KEY=your_zotero_api_key
 ZOTERO_LIBRARY_TYPE=user
 ```
 
-## Run Locally
+Do not commit `.env`.
 
-Backend:
+## Start the App
+
+Terminal 1:
 
 ```powershell
-cd research_paper_agent
-python api.py
+.\scripts\start_backend.ps1
 ```
 
-Frontend:
+Terminal 2:
 
 ```powershell
-cd docs
-python -m http.server 8000
+.\scripts\start_frontend.ps1
 ```
 
 Open:
@@ -73,7 +95,54 @@ Open:
 http://127.0.0.1:8000
 ```
 
-## Tests
+Backend health check:
+
+```text
+http://127.0.0.1:9000/api/status
+```
+
+Zotero collections:
+
+```text
+http://127.0.0.1:9000/api/zotero/collections
+```
+
+## Basic Usage
+
+1. Start the backend and frontend.
+2. Select a literature source:
+   - Zotero collection, or
+   - external scholarly search.
+3. Enter:
+   - research idea;
+   - research field or aim;
+   - data description;
+   - target journal, if available;
+   - output format, usually `tex`.
+4. Submit the form.
+5. Download generated files:
+   - `.md`
+   - `.tex`
+   - `.bib`
+   - `.pdf`
+   - literature HTML summaries
+   - quality report JSON
+
+Generated artifacts are saved under:
+
+```text
+research_paper_agent\data\
+```
+
+This folder is ignored by git.
+
+## Run Checks
+
+```powershell
+.\scripts\run_checks.ps1
+```
+
+Manual backend checks:
 
 ```powershell
 cd research_paper_agent
@@ -81,22 +150,37 @@ python -m py_compile service.py api.py models.py literature\external_search.py l
 python -m unittest tests.test_quality_gate tests.test_export_helpers tests.test_literature_and_prompts
 ```
 
-If Node.js is installed, check the frontend:
+Frontend syntax check, if Node.js is installed:
 
 ```powershell
 cd docs
 node --check app.js
 ```
 
-## Security Notes
+## Security
 
 Never commit:
 
-- `.env`
-- generated drafts, PDFs, BibTeX files, or literature summaries;
-- `data/submissions.json`;
-- cache files;
-- personal Zotero exports or private research proposals.
+- `research_paper_agent/.env`
+- generated drafts, PDFs, BibTeX files, and literature summaries
+- `research_paper_agent/data/submissions.json`
+- cache files
+- local tools under `.tools/`
 
-Generated user artifacts are intentionally ignored by `.gitignore`.
+The repository includes `.gitignore` rules for these paths.
+
+## Current MVP Boundary
+
+MVP2 is a local, single-user research drafting workflow. It is not yet a hosted multi-user SaaS product.
+
+Before commercial hosting, add:
+
+- authentication;
+- per-user project isolation;
+- signed downloads;
+- rate limiting;
+- task queues;
+- cloud storage policy;
+- audit logs;
+- privacy and data-retention controls.
 
